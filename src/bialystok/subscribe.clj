@@ -14,10 +14,17 @@
           #(conj % {:address sub-address, :subscription-type sub-type}))
         :dumper-options {:flow-style :block}))))
 
-(defn delim
+(defn list-delim
   "Returns delimiter given in config.yaml or default \"+\"."
   [list-dir]
   (let [yaml-file (str list-dir "/config.yaml") 
         delimv (get (yaml/parse-string (slurp yaml-file)) :delimiter)]
     (if-not delimv "+" delimv)))
+
+(defn list-fqdn
+  "Returns FQDN portion of list address."
+  [list-dir]
+  (let [yaml-file (str list-dir "/config.yaml")
+        list-addr (get (yaml/parse-string (slurp yaml-file)) :list-address)]
+    (subs list-addr (inc (.indexOf list-addr "@")) (count list-addr))))
 
