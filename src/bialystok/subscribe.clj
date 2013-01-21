@@ -13,3 +13,11 @@
         (update-in (yaml/parse-string (slurp yaml-file)) [:under-moderation] 
           #(conj % {:address sub-address, :subscription-type sub-type}))
         :dumper-options {:flow-style :block}))))
+
+(defn delim
+  "Returns delimiter given in config.yaml or default \"+\"."
+  [list-dir]
+  (let [yaml-file (str list-dir "/config.yaml") 
+        delimv (get (yaml/parse-string (slurp yaml-file)) :delimiter)]
+    (if-not delimv "+" delimv)))
+
