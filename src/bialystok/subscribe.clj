@@ -2,7 +2,8 @@
 ;;;; License: EPL or copyleft-next
 
 (ns bialystok.subscribe
-  (:require [clj-yaml :as yaml]))
+  (:require [clj-yaml :as yaml])
+  (:require [clojure.string :as string]))
 
 (defn mod-subscriber 
   "Adds information about moderated subscriber to config.yaml."
