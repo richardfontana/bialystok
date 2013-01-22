@@ -21,10 +21,20 @@
         delimv (get (yaml/parse-string (slurp yaml-file)) :delimiter)]
     (if-not delimv "+" delimv)))
 
-(defn list-fqdn
-  "Returns FQDN portion of list address."
+(defn list-name-fqdn
+  "Returns name and FQDN portions of list address."
   [list-dir]
   (let [yaml-file (str list-dir "/config.yaml")
         list-addr (get (yaml/parse-string (slurp yaml-file)) :list-address)]
-    (subs list-addr (inc (.indexOf list-addr "@")) (count list-addr))))
+    (string/split list-addr #"@")))
+
+(defn list-name
+  "Returns name portion of list address."
+  [list-dir]
+  (first (list-name-fqdn list-dir)))
+
+(defn list-fqdn
+  "Returns FQDN portion of list address."
+  [list-dir]
+  (second (list-name-fqdn list-dir)))
 
