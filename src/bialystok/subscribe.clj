@@ -39,3 +39,10 @@
   [list-dir]
   (second (list-name-fqdn list-dir)))
 
+(defn moderators
+  "Returns list of moderators (as addresses)."
+  [list-dir]
+  (let [yaml-file (str list-dir "/config.yaml")
+        parsed-yaml (yaml/parse-string (slurp yaml-file))
+        modsv (get parsed-yaml :moderators)]
+    (if-not modsv (get parsed-yaml :owners) modsv)))
