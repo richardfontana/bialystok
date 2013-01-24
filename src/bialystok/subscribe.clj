@@ -46,3 +46,8 @@
         parsed-yaml (yaml/parse-string (slurp yaml-file))
         modsv (get parsed-yaml :moderators)]
     (if-not modsv (get parsed-yaml :owners) modsv)))
+
+(defn cookie
+  "Returns 16-digit random integer as string."
+  []
+  (str (rand-int 99999999) (rand-int 99999999)))
